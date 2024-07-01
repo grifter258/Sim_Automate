@@ -1,6 +1,6 @@
 import smtplib
 from email.mime.text import MIMEText
-from password import PASS
+from password import PASS1
 from password import PASS2
 
 def send_email(subject, body, sender, recipients):
