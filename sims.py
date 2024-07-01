@@ -33,7 +33,7 @@ def process_sim(data_dict):
                 if sim_type == "Three":
                     # Email to send if the sim card type is "Three"
                     subject = 'Cancel Sim'
-                    body = f'Please set the below sim to cancel with 30 days:\n\n{desired_name} - {number}'
+                    body = f'Please set the below sim to cancel with 30 days:\n - {number}'
                     sender = 'sonartestsims@gmail.com'
                     recipients = [sender, 'sonartestsims@gmail.com']
 
@@ -44,7 +44,7 @@ def process_sim(data_dict):
                 elif sim_type == "Eir":
                     # Email to send if the sim card type is "Eir"
                     subject = 'Cancel Sim'
-                    body = f'Please set the below sim to cancel with 30 days:\n\n{desired_name} - {number}'
+                    body = f'Please set the below sim to cancel with 30 days:\n - {number}'
                     sender = 'luke.dowling@regionalbroadband.ie'
                     recipients = [sender, 'luke.dowling@regionalbroadband.ie']
 
