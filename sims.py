@@ -1,5 +1,6 @@
 import csv
-from email_util import send_email, send_email_2
+from email_util import send_email
+
 
 # Initialize an empty dictionary to store the data
 data_dict = {}
@@ -19,7 +20,7 @@ with open('testsims1.csv', newline='') as csvfile:
         data_dict[name] = (number, sim_type)
 
 # Print the dictionary to verify
-print(f"{data_dict}")
+# print(f"{data_dict}")
 
 # Accessing a specific number by name
 def process_sim(data_dict):
@@ -30,7 +31,7 @@ def process_sim(data_dict):
                 number, sim_type = data_dict[desired_name]
                 print(f"Sim card assigned to {desired_name} is {number} and the sim type is {sim_type}")
                 
-                if sim_type == "Three":
+                if sim_type == "Three" or sim_type == 'Eir':
                     # Email to send if the sim card type is "Three"
                     subject = 'Cancel Sim'
                     body = f'Please set the below sim to cancel with 30 days:\n - {number}'
@@ -40,17 +41,6 @@ def process_sim(data_dict):
                     # Email send, calls function from email_util
                     send_email(subject, body, sender, recipients)
                     print("Email sent successfully for 'Three' sim type.")
-
-                elif sim_type == "Eir":
-                    # Email to send if the sim card type is "Eir"
-                    subject = 'Cancel Sim'
-                    body = f'Please set the below sim to cancel with 30 days:\n - {number}'
-                    sender = 'luke.dowling@regionalbroadband.ie'
-                    recipients = [sender, 'luke.dowling@regionalbroadband.ie']
-
-                    # Email send, calls function from email_util
-                    send_email_2(subject, body, sender, recipients)
-                    print("Email sent successfully for 'Eir' sim type.")
 
                 break
             else:
