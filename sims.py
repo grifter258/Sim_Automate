@@ -1,5 +1,5 @@
 import csv
-from email_util import send_email
+from email_util import send_email, send_email_2
 
 # Initialize an empty dictionary to store the data
 data_dict = {}
@@ -10,12 +10,13 @@ with open('testsims1.csv', newline='') as csvfile:
     
     # Iterate through each row in the CSV file
     for row in reader:
-        # Assuming each row has two columns: name and number
+        # Assuming each row has three columns: name, number, and sim_type
         name = row[0].strip()  # Get the name (first column)
         number = row[1].strip()  # Get the number (second column)
+        sim_type = row[2].strip()  # Get the sim_type (third column)
         
-        # Store the data in the dictionary, [name] as key, number as value
-        data_dict[name] = number
+        # Store the data in the dictionary, [name] as key, tuple (number, sim_type) as value
+        data_dict[name] = (number, sim_type)
 
 # Print the dictionary to verify
 print(f"{data_dict}")
@@ -23,25 +24,35 @@ print(f"{data_dict}")
 # Accessing a specific number by name
 try:
     while True:
-        desired_name = input("Sonar Account: ")
+        desired_name = input("Sonar Account: ").strip()
         if desired_name in data_dict:
-                print(f"Sim card assigned to {desired_name} is {data_dict[desired_name]}") # finds Name in dictionary [the key] and return the sim number [value]
-
-                # Email to send if the sim card is found:
+            number, sim_type = data_dict[desired_name]
+            print(f"Sim card assigned to {desired_name} is {number} and the sim type is {sim_type}")
+            
+            if sim_type == "Three":
+                # Email to send if the sim card type is "Three"
                 subject = 'Cancel Sim'
-                body = f'Please set the below sim to cancel with 30 days:\n\n{desired_name} - {data_dict[desired_name]}'
+                body = f'Please set the below sim to cancel with 30 days:\n\n{desired_name} - {number}'
                 sender = 'sonartestsims@gmail.com'
                 recipients = [sender, 'sonartestsims@gmail.com']
 
-                # Email send
+                # Email send, calls function from email_util
                 send_email(subject, body, sender, recipients)
+                print("Email sent successfully for 'Three' sim type.")
 
-                break
+            elif sim_type == "Eir":
+                # Email to send if the sim card type is "Eir"
+                subject = 'Cancel Sim'
+                body = f'Please set the below sim to cancel with 30 days:\n\n{desired_name} - {number}'
+                sender = 'luke.dowling@regionalbroadband.ie'
+                recipients = [sender, 'luke.dowling@regionalbroadband.ie']
 
+                # Email send, calls function from email_util
+                send_email_2(subject, body, sender, recipients)
+                print("Email sent successfully for 'Eir' sim type.")
+
+            break
         else:
-             print("No sonar account found, try again")
+            print("No sonar account found, try again")
 except ValueError:
-     print("Value error, use only string")
-
-
-
+    print("Value error, use only string")
