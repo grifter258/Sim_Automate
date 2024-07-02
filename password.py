@@ -1,1 +1,0 @@
-password = 'rmvy ggmi akvp wpwz'

@@ -1,6 +1,14 @@
 import smtplib
 from email.mime.text import MIMEText
-from password import password
+from dotenv import load_dotenv, dotenv_values
+import os
+
+load_dotenv()
+
+passw = os.getenv("email_password")
+
+print(os.getenv("email_password"))
+
 
 
 def send_email(subject, body, sender, recipients):
@@ -11,7 +19,7 @@ def send_email(subject, body, sender, recipients):
     msg['To'] = ', '.join(recipients)
 
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp_server:
-        smtp_server.login(sender, password)
+        smtp_server.login(sender, passw)
         smtp_server.sendmail(sender, recipients, msg.as_string())
 
 
