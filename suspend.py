@@ -30,7 +30,7 @@ def suspend_sim(data_dict):
                 number, sim_type = data_dict[desired_name]
                 print(f"Sim card assigned to {desired_name} is {number} and the sim type is {sim_type}")
                 
-                if sim_type == "Three" or sim_type == 'Eir':
+                if sim_type == "Three":
                     subject = 'Suspend Sims'
                     body = f'Please set the below sim to suspend immediately:\n - {number}'
                     sender = 'luke.dowling@regionalbroadband.ie'
@@ -38,6 +38,16 @@ def suspend_sim(data_dict):
                     send_email(subject, body, sender, recipients)
                     print("Email sent successfully for 'Three' sim type.")
                     continue
+
+                elif sim_type == 'Eir':
+                    subject = 'Cancel Sim'
+                    body = f'Please set the below sim to cancel with 30 days:\n - {number}'
+                    sender = 'luke.dowling@regionalbroadband.ie'
+                    recipients = [sender, 'luke.dowling@regionalbroadband.ie'] 
+                    send_email(subject, body, sender, recipients)
+                    print("Email sent successfully for 'Three' sim type.")
+                    continue
+
             elif desired_name == 'Exit':
                 print("Exiting")
                 sys.exit()

@@ -15,9 +15,9 @@ with open('testsims1.csv', newline='') as csvfile:
         name = row[0].strip()  # Get the name (first column)
         number = row[1].strip()  # Get the number (second column)
         sim_type = row[2].strip()  # Get the sim_type (third column)
-        
+        sim_status = row[3].strip()
         # Store the data in the dictionary, [name] as key, tuple (number, sim_type) as value
-        data_dict[name] = (number, sim_type)
+        data_dict[name] = (number, sim_type, sim_status)
 
 # Print the dictionary to verify
 # print(f"{data_dict}")
@@ -28,8 +28,9 @@ def process_sim(data_dict):
         while True:
             desired_name = input("Sonar Account: ").strip()
             if desired_name in data_dict:
-                number, sim_type = data_dict[desired_name]
-                print(f"Sim card assigned to {desired_name} is {number} and the sim type is {sim_type}")
+                number, sim_type, sim_status = data_dict[desired_name]
+                print(f"Sim card assigned to {desired_name} is {number} and the sim type is {sim_type}, the status of this sim is {sim_status}")
+                new_sim_status = 'Consumed'
                 
                 if sim_type == "Three":
                     subject = 'Cancel Sim'
@@ -38,7 +39,8 @@ def process_sim(data_dict):
                     recipients = [sender, 'luke.dowling@regionalbroadband.ie'] 
                     send_email(subject, body, sender, recipients)
                     print("Email sent successfully for 'Three' sim type.")
-                    break
+                    data_dict[desired_name] = (number, sim_type, new_sim_status)
+                    continue
 
                 elif sim_type == 'Eir':
                     subject = 'Cancel Sim'
@@ -47,7 +49,8 @@ def process_sim(data_dict):
                     recipients = [sender, 'luke.dowling@regionalbroadband.ie'] 
                     send_email(subject, body, sender, recipients)
                     print("Email sent successfully for 'Three' sim type.")
-                    break
+                    data_dict[desired_name] = (number, sim_type, new_sim_status)
+                    continue
 
             else:
                 print("No sonar account found, try again")
