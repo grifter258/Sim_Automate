@@ -1,5 +1,5 @@
 from cancel_sims import process_sim, data_dict
-from suspend import suspend_sim
+from suspend import suspend_sim, data_dict_2
 import sys
 from pprint import pprint 
 def user_choice():
@@ -11,8 +11,8 @@ def user_choice():
                 process_sim(data_dict)
                 break
             elif choice == 2:
-                pprint(data_dict)
-                suspend_sim(data_dict)
+                pprint(data_dict_2)
+                suspend_sim(data_dict_2)
                 break
             elif choice == 3:
                 print("Exiting Program")
